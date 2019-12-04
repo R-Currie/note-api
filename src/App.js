@@ -4,6 +4,7 @@ import './App.css';
 import Nav from './components/Nav';
 import List from './components/List';
 import Note from './components/Note';
+import urlFor from './helpers/urlFor';
 
 class App extends Component {
     constructor(props) {
@@ -21,7 +22,7 @@ class App extends Component {
     }
 
     getNotes = () => {
-        axios.get('https://note-api-rcurrie.herokuapp.com/notes')
+        axios.get(urlFor('notes'))
         .then((res) => console.log(res.data))
         .catch((err) => console.log(err.response.data));
     }
