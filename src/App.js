@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import './App.css';
 import Nav from './components/Nav';
 import List from './components/List';
@@ -19,13 +20,19 @@ class App extends Component {
         });
     }
 
+    getNotes = () => {
+        axios.get('https://note-api-rcurrie.herokuapp.com/notes')
+        .then((res) => console.log(res.data))
+        .catch((err) => console.log(err.response.data));
+    }
+
     render() {
         const {showNote} = this.state;
 
         return (
             <div className="App">
                 <Nav toggleNote={this.toggleNote} showNote={showNote} />
-                { showNote ? <Note /> : <List />}
+                { showNote ? <Note /> : <List getNotes ={this.getNotes} />}
             </div>
         );
     }
