@@ -66,6 +66,12 @@ class App extends Component {
         this.setState({ newTag: false })
     }
 
+    submitTag = (data, noteId) => {
+        axios.post(urlFor(`notes/${noteId}/tags`), data)
+            .then((res) => this.getNote(noteId))
+            .catch((err) => console.log(err));
+    }
+
     render() {
         const {showNote, notes, note, newTag} = this.state;
 
@@ -79,6 +85,7 @@ class App extends Component {
                         showTagForm={this.showTagForm} 
                         closeTagForm={this.closeTagForm} 
                         newTag={newTag} 
+                        submitTag={this.submitTag}
                     /> 
                     :
                     <List getNotes ={this.getNotes} notes={notes} getNote={this.getNote} deleteNote={this.deleteNote} />
