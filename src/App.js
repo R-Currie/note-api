@@ -13,7 +13,8 @@ class App extends Component {
         this.state = {
             showNote: false,
             notes: [],
-            note: {}
+            note: {},
+            newTag: false
         };
     }
 
@@ -57,14 +58,18 @@ class App extends Component {
             .catch((err) => console.log(err.respose.data))
     }
 
+    showTagForm = () => {
+        this.setState({ newTag: true });
+    }
+
     render() {
-        const {showNote, notes, note} = this.state;
+        const {showNote, notes, note, newTag} = this.state;
 
         return (
             <div className="App">
                 <Nav toggleNote={this.toggleNote} showNote={showNote} />
                 { showNote ?
-                    <Note note={note} submitNote={this.submitNote} /> 
+                    <Note note={note} submitNote={this.submitNote} showTagForm={this.showTagForm} newTag={newTag} /> 
                     :
                     <List getNotes ={this.getNotes} notes={notes} getNote={this.getNote} deleteNote={this.deleteNote} />
                 }
